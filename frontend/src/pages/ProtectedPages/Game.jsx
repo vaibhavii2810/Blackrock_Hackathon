@@ -12,6 +12,7 @@ const Game = () => {
     axios.get('http://localhost:3000/api/v1/getnuggets') // Replace with actual API endpoint
       .then(response => {
         setUserNuggets(response.data.score); // Assuming response has nuggets data
+        console.log(response.data.score) ; 
         setLoading(false);
       })
       .catch(error => {
@@ -19,7 +20,7 @@ const Game = () => {
         setLoading(false);
       });
   }, []);
-
+  console.log(userNuggets)
   const canPlayGame = userNuggets >= 30;
 
   const boxes = [
