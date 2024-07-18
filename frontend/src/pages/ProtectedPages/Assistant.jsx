@@ -13,6 +13,16 @@ const Assistant = () => {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+    // Predefined expense data
+    const expenseData = `
+    Food Mess ₹4000
+    Transport ₹1200
+    Entertainment ₹1230
+    Rent House ₹10000
+    Clothes ₹5000
+    This are my expense for this month pls suggest how can i mange my expense and save more.
+    `;
+
     // Function to handle question submission
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +30,7 @@ const Assistant = () => {
         try {
             const result = await model.generateContent(question);
             const response = await result.response;
-            const text = response.text();
+            const text = await response.text();
             const plainText = text.replace(/[*#]/g, ''); // Remove markdown syntax
 
             // Process and format response
@@ -62,30 +72,44 @@ const Assistant = () => {
         return formattedParagraphs;
     };
 
+    // Function to handle "Manage My Expense" button click
+    const handleManageExpense = () => {
+        setQuestion(expenseData);
+
+    };
+
     return (
-        <div className="max-w-2xl mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="bg-[#8BE4B1] p-4">
-                <h2 className="text-white text-2xl font-semibold">Your Assistant</h2>
-            </div>
-            <div className="p-4 h-96 overflow-y-auto">
-                {messages.map((message, index) => (
-                    <div key={index} className={`my-2 p-2 rounded ${message.type === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'}`} dangerouslySetInnerHTML={{ __html: message.text }}></div>
-                ))}
-            </div>
-            <form onSubmit={handleSubmit} className="p-4 flex items-center">
-                <input
-                    type="text"
-                    placeholder="Type your question here..."
-                    value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
-                    className="flex-1 p-2 border rounded border-gray-300 mr-2"
-                    required
-                />
-                <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors duration-300" disabled={loading}>
-                    {loading ? 'Sending...' : 'Send'}
+        <div className='max-w-3xl mx-56'>
+            <div className="w-5xl mx-auto mt-10 bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="bg-[#8BE4B1] p-4">
+                    <h2 className="text-white text-2xl font-semibold">Your Assistant</h2>
+                </div>
+                <div className="p-4 h-96 overflow-y-auto">
+                    {messages.map((message, index) => (
+                        <div key={index} className={`my-2 p-2 block-inline rounded ${message.type === 'user' ? 'bg-blue-100 text-right' : 'bg-gray-100 text-left'}`} dangerouslySetInnerHTML={{ __html: message.text }}></div>
+                    ))}
+                </div>
+                <form onSubmit={handleSubmit} className="p-4 flex items-center">
+                    <input
+                        type="text"
+                        placeholder="Type your question here..."
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        className="flex-1 p-2 border rounded border-gray-300 mr-2"
+                        required
+                    />
+                    <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors duration-300" disabled={loading}>
+                        {loading ? 'Sending...' : 'Send'}
+                    </button>
+                </form>
+                <button
+                    onClick={handleManageExpense}
+                    className="bg-[#F87171] mx-72 mb-4 text-white p-2 rounded hover:bg-green-600 transition-colors duration-300 mt-2"
+                >
+                    Manage My Expense
                 </button>
-            </form>
-            {error && <p className="text-red-500 p-4">{error}</p>}
+                {error && <p className="text-red-500 p-4">{error}</p>}
+            </div>
         </div>
     );
 };

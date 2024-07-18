@@ -41,8 +41,8 @@ const TopBar = () => {
         <Menu />
       </div>
       <div className="hidden md:flex text-2xl font-semibold items-center space-x-4">
-        {/* Add tokens element here */}
-        <img src={nuggets} alt="Nuggets" className="h-12" /> {nugget} <span>Nuggets</span> 
+        {/* Add tokens element here */}{nugget} 
+        <img src={nuggets} alt="Nuggets" className="h-12" />
       </div>
       <div className="flex justify-center items-center space-x-4">
         <Settings

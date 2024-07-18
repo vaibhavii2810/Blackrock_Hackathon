@@ -11,20 +11,15 @@ const Game = () => {
   const [getNugget, { isLoading: getnuggetsLoading }] = useGetnuggetsMutation();
 
   const getPoints = async () => {
-    const data = await getNugget();
-
-    console.log(data);
-
-    setUserNuggets(data.data.score);
-
-    console.log(userNuggets);
-
-    if (userNuggets > 30) {
-      console.log("You can play");
-    } else {
-      console.log("you cannot play");
+    try {
+      const data = await getNugget().unwrap(); // Unwrap the response to access data directly
+      console.log(data);
+      setUserNuggets(data.score); // Update state with the correct value
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -34,7 +29,7 @@ const Game = () => {
 
   const canPlayGame = userNuggets >= 30;
 
-  const boxes = [
+    const boxes = [
     {
       imageSrc:
         "https://www.extremetech.com/wp-content/uploads/2014/02/flappy-bird.jpg",
@@ -46,7 +41,7 @@ const Game = () => {
         : `Need ${30 - userNuggets} more nuggets to play`,
       buttonLink: canPlayGame
         ? "https://flappy-bird-one-kappa.vercel.app"
-        : null,
+        : "#", // Placeholder link
     },
     {
       imageSrc:
@@ -59,14 +54,14 @@ const Game = () => {
         : `Need ${30 - userNuggets} more nuggets to play`,
       buttonLink: canPlayGame
         ? "https://game-simulator-theta.vercel.app/"
-        : null,
+        : "#", // Placeholder link
     },
   ];
 
   return (
     <div className="container mx-auto p-4">
       {loading && <p>Loading nuggets...</p>}
-      {error && <p>Error fetching nuggets: {error}</p>}
+      {error && <p>Error fetching nuggets: {error.message}</p>}
       {!loading && !error && (
         <>
           {boxes.map((box, index) => (

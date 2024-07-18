@@ -19,7 +19,7 @@ const FullWidthBox = ({
   const handleClick = () => {
     if (deductNuggets) {
       decreaseNugget();
-    } else {
+    
       window.location.href = buttonLink; // Navigate to game URL without deducting nuggets
     }
   };
