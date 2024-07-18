@@ -1,17 +1,24 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
+import { useAddnuggetsMutation } from "../../features/api/apiSlices/userApiSlice";
 
-const FullWidthBox = ({ imageSrc, title, description, buttonText, buttonLink, deductNuggets }) => {
+const FullWidthBox = ({
+  imageSrc,
+  title,
+  description,
+  buttonText,
+  buttonLink,
+  deductNuggets,
+}) => {
+  const [addNugget, { isLoading: addnuggetsLoading }] = useAddnuggetsMutation();
+
+  const decreaseNugget = async () => {
+    const res = await addNugget({ score: -30 });
+    console.log("res : ", res);
+  };
   const handleClick = () => {
     if (deductNuggets) {
-      axios.post('http://localhost:3000/api/v1/deductNuggets', { amount: 30 }) // Replace with actual API endpoint
-        .then(response => {
-          window.location.href = buttonLink; // Navigate to game URL after successful deduction
-        })
-        .catch(error => {
-          console.error('Error deducting nuggets:', error);
-          // Handle error scenario (e.g., show a message to the user)
-        });
+      decreaseNugget();
     } else {
       window.location.href = buttonLink; // Navigate to game URL without deducting nuggets
     }
@@ -28,7 +35,9 @@ const FullWidthBox = ({ imageSrc, title, description, buttonText, buttonLink, de
         <h2 className="text-xl font-bold mb-2">{title}</h2>
         <p className="mb-4">{description}</p>
         <button
-          className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 ${!deductNuggets && 'cursor-not-allowed'}`}
+          className={`bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 ${
+            !deductNuggets && "cursor-not-allowed"
+          }`}
           onClick={handleClick} // Handle button click to navigate to gameLink or deduct nuggets
           disabled={!deductNuggets} // Disable button if nuggets are not deducted
         >
