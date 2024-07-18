@@ -1,0 +1,26 @@
+.course-details-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Ensure text alignment starts from left */
+}
+
+.course-details-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.course-details-content {
+    display: flex;
+    flex-direction: column; /* Change this to column */
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .course-details-page {
+        padding: 10px;
+    }
+}

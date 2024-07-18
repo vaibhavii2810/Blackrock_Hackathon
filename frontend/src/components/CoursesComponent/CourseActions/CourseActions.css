@@ -1,0 +1,32 @@
+.course-actions {
+    margin-top: 20px;
+  }
+  
+  .course-actions button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .enroll-button {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .start-course-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .wishlist-button {
+    background-color: #ffc107;
+    color: #333;
+  }
+  
+  .share-button {
+    background-color: #17a2b8;
+    color: #fff;
+  }
