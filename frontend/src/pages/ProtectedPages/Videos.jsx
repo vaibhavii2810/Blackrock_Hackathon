@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import VdoButton from '../../components/Cards/VdoButton';
+import React, { useState } from "react";
+import VdoButton from "../../components/Cards/VdoButton";
+import { useAddnuggetsMutation } from "../../features/api/apiSlices/userApiSlice";
 
 const Videos = () => {
   const items = [
@@ -7,37 +8,37 @@ const Videos = () => {
       id: "Basic Personal Finance Math",
       title: "Basic Personal Finance Math",
       imageSrc: "https://img.youtube.com/vi/qoY2lz5IOGs/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/qoY2lz5IOGs',
+      videoUrl: "https://www.youtube.com/embed/qoY2lz5IOGs",
     },
     {
-      id:"Financial Freedom",
+      id: "Financial Freedom",
       title: "Financial Freedom",
       imageSrc: "https://img.youtube.com/vi/KN0y9lMZQRQ/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/KN0y9lMZQRQ',
+      videoUrl: "https://www.youtube.com/embed/KN0y9lMZQRQ",
     },
     {
-      id:"Stock Market",
+      id: "Stock Market",
       title: "Stock Market",
       imageSrc: "https://img.youtube.com/vi/HNPbY6fSeo8/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/HNPbY6fSeo8',
+      videoUrl: "https://www.youtube.com/embed/HNPbY6fSeo8",
     },
-    { 
-      id:"Mutual Funds",
+    {
+      id: "Mutual Funds",
       title: "Mutual Funds",
       imageSrc: "https://img.youtube.com/vi/ACpQo1a_RBk/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/ACpQo1a_RBk',
+      videoUrl: "https://www.youtube.com/embed/ACpQo1a_RBk",
     },
     {
-      id:"Taxes Explained",
+      id: "Taxes Explained",
       title: "Taxes Explained",
       imageSrc: "https://img.youtube.com/vi/MQpbxF_RngI/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/MQpbxF_RngI',
+      videoUrl: "https://www.youtube.com/embed/MQpbxF_RngI",
     },
     {
-      id:"SIP",
+      id: "SIP",
       title: "SIP",
       imageSrc: "https://img.youtube.com/vi/Wy2aEUmf_OE/sddefault.jpg",
-      videoUrl: 'https://www.youtube.com/embed/Wy2aEUmf_OE',
+      videoUrl: "https://www.youtube.com/embed/Wy2aEUmf_OE",
     },
   ];
 
@@ -99,7 +100,12 @@ const Videos = () => {
     },
     {
       question: "What is your favorite book?",
-      options: ["Harry Potter", "Lord of the Rings", "Pride and Prejudice", "1984"],
+      options: [
+        "Harry Potter",
+        "Lord of the Rings",
+        "Pride and Prejudice",
+        "1984",
+      ],
       correctAnswer: "Harry Potter",
     },
     {
@@ -119,9 +125,6 @@ const Videos = () => {
     },
   ];
 
-
-
-
   const financeQuestions = [
     {
       question: "What is the primary goal of budgeting in personal finance?",
@@ -135,11 +138,17 @@ const Videos = () => {
     },
     {
       question: "What formula is used to calculate simple interest?",
-      options: ["I = P × r × t", "I = P + r + t", "I = P / r / t", "I = P - r - t"],
+      options: [
+        "I = P × r × t",
+        "I = P + r + t",
+        "I = P / r / t",
+        "I = P - r - t",
+      ],
       correctAnswer: "I = P × r × t",
     },
     {
-      question: "Why is it important to understand the time value of money in personal finance?",
+      question:
+        "Why is it important to understand the time value of money in personal finance?",
       options: ["Earnings", "Expenses", "Investments", "Decisions"],
       correctAnswer: "Decisions",
     },
@@ -154,17 +163,20 @@ const Videos = () => {
       correctAnswer: "Security",
     },
     {
-      question: "How does one calculate the monthly payment for a loan using the annuity formula?",
+      question:
+        "How does one calculate the monthly payment for a loan using the annuity formula?",
       options: ["Sum", "Formula", "Subtraction", "Division"],
       correctAnswer: "Formula",
     },
     {
-      question: "What is the importance of having a diversified investment portfolio?",
+      question:
+        "What is the importance of having a diversified investment portfolio?",
       options: ["Growth", "Savings", "Investment", "Risk"],
       correctAnswer: "Risk",
     },
     {
-      question: "What factors should be considered when planning for retirement?",
+      question:
+        "What factors should be considered when planning for retirement?",
       options: ["Income", "Expenses", "Savings", "Investments"],
       correctAnswer: "Expenses",
     },
@@ -182,12 +194,14 @@ const Videos = () => {
       correctAnswer: "Freedom",
     },
     {
-      question: "What is the starting capital mentioned in the video for achieving financial freedom?",
+      question:
+        "What is the starting capital mentioned in the video for achieving financial freedom?",
       options: ["10000", "15000", "20000", "25000"],
       correctAnswer: "20000",
     },
     {
-      question: "What is the first step suggested in the video for financial planning?",
+      question:
+        "What is the first step suggested in the video for financial planning?",
       options: ["Investing", "Saving", "Budgeting", "Spending"],
       correctAnswer: "Budgeting",
     },
@@ -203,7 +217,12 @@ const Videos = () => {
     },
     {
       question: "What financial instrument is recommended for long-term goals?",
-      options: ["Fixed Deposit", "SIP (Systematic Investment Plan)", "Bonds", "Recurring Deposit"],
+      options: [
+        "Fixed Deposit",
+        "SIP (Systematic Investment Plan)",
+        "Bonds",
+        "Recurring Deposit",
+      ],
       correctAnswer: "SIP (Systematic Investment Plan)",
     },
     {
@@ -222,13 +241,12 @@ const Videos = () => {
       correctAnswer: "Discipline",
     },
     {
-      question: "What is the suggested strategy for handling high-interest debt?",
+      question:
+        "What is the suggested strategy for handling high-interest debt?",
       options: ["Investing", "Saving", "Repayment", "Budgeting"],
       correctAnswer: "Repayment",
     },
   ];
-
-
 
   const stockMarketQuestions = [
     {
@@ -283,7 +301,6 @@ const Videos = () => {
     },
   ];
 
-  
   const mutualFundsQuestions = [
     {
       question: "What is the main focus of the video 'Mutual Funds'?",
@@ -291,7 +308,8 @@ const Videos = () => {
       correctAnswer: "Returns",
     },
     {
-      question: "What is emphasized as a key strategy for investing in mutual funds?",
+      question:
+        "What is emphasized as a key strategy for investing in mutual funds?",
       options: ["Diversification", "Savings", "Budgeting", "Insurance"],
       correctAnswer: "Diversification",
     },
@@ -311,17 +329,20 @@ const Videos = () => {
       correctAnswer: "Diversification",
     },
     {
-      question: "What should investors monitor regularly when investing in mutual funds?",
+      question:
+        "What should investors monitor regularly when investing in mutual funds?",
       options: ["Performance", "Volatility", "Ownership", "Dividends"],
       correctAnswer: "Performance",
     },
     {
-      question: "What is recommended to understand before choosing a mutual fund?",
+      question:
+        "What is recommended to understand before choosing a mutual fund?",
       options: ["Fees", "Ownership", "Returns", "Volatility"],
       correctAnswer: "Fees",
     },
     {
-      question: "What role do financial advisors play in mutual fund investments?",
+      question:
+        "What role do financial advisors play in mutual fund investments?",
       options: ["Guidance", "Ownership", "Returns", "Volatility"],
       correctAnswer: "Guidance",
     },
@@ -331,13 +352,13 @@ const Videos = () => {
       correctAnswer: "Risk",
     },
     {
-      question: "What is emphasized as a key to successful mutual fund investing?",
+      question:
+        "What is emphasized as a key to successful mutual fund investing?",
       options: ["Patience", "Timing", "Strategy", "Luck"],
       correctAnswer: "Patience",
     },
   ];
 
-  
   const taxesExplainedQuestions = [
     {
       question: "What is the purpose of income taxes?",
@@ -376,11 +397,17 @@ const Videos = () => {
     },
     {
       question: "What does VAT stand for?",
-      options: ["Value Added Tax", "Value Assessment Tax", "Value Adjustment Tax", "Variable Added Tax"],
+      options: [
+        "Value Added Tax",
+        "Value Assessment Tax",
+        "Value Adjustment Tax",
+        "Variable Added Tax",
+      ],
       correctAnswer: "Value Added Tax",
     },
     {
-      question: "What is the tax rate for long-term capital gains in some countries?",
+      question:
+        "What is the tax rate for long-term capital gains in some countries?",
       options: ["Lower", "Higher", "Equal", "Zero"],
       correctAnswer: "Lower",
     },
@@ -403,12 +430,14 @@ const Videos = () => {
       correctAnswer: "Regular",
     },
     {
-      question: "What strategy does SIP benefit from, involving buying shares at various prices over time?",
+      question:
+        "What strategy does SIP benefit from, involving buying shares at various prices over time?",
       options: ["Averaging", "Maximizing", "Minimizing", "Stagnating"],
       correctAnswer: "Averaging",
     },
     {
-      question: "What is Step-Up SIP, and how does it help build a bigger corpus?",
+      question:
+        "What is Step-Up SIP, and how does it help build a bigger corpus?",
       options: ["Gradual", "Sudden", "Immediate", "Delayed"],
       correctAnswer: "Gradual",
     },
@@ -446,10 +475,10 @@ const Videos = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [showQuizModal, setShowQuizModal] = useState(false);
-  const [currentVideoUrl, setCurrentVideoUrl] = useState('');
+  const [currentVideoUrl, setCurrentVideoUrl] = useState("");
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [score, setScore] = useState(null);
-
+  const [addNugget, { isLoading: addnuggetsLoading }] = useAddnuggetsMutation();
   const handleItemClick = (videoUrl) => {
     setCurrentVideoUrl(videoUrl);
     setShowModal(true);
@@ -471,14 +500,16 @@ const Videos = () => {
     } else if (item.id === "SIP") {
       setCurrentQuestions(sipQuestions);
     } else {
-      setCurrentQuestions(questions.sort(() => 0.5 - Math.random()).slice(0, 10));
+      setCurrentQuestions(
+        questions.sort(() => 0.5 - Math.random()).slice(0, 10)
+      );
     }
     setShowQuizModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setCurrentVideoUrl('');
+    setCurrentVideoUrl("");
   };
 
   const closeQuizModal = () => {
@@ -486,7 +517,9 @@ const Videos = () => {
     setScore(null);
   };
 
-  const handleSubmit = (e) => {
+ 
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let score = 0;
     const formData = new FormData(e.target);
@@ -496,13 +529,28 @@ const Videos = () => {
       }
     });
     setScore(score);
-  };
 
+    const addPoints = async () => {
+
+      const updatedScore = score*10;
+      const res = await addNugget({score : updatedScore});
+      console.log("res : ", res);
+    };
+
+    addPoints();
+
+    console.log(currentQuestions);
+  };
 
   return (
     <div>
       <div className="mt-3 text-center">
-        <h1 className="text-4xl font-bold text mb-8">Quiz <span className='bg-[#8BE4B1] inline-block rounded-md p-2'>Videos</span></h1>
+        <h1 className="text-4xl font-bold text mb-8">
+          Quiz{" "}
+          <span className="bg-[#8BE4B1] inline-block rounded-md p-2">
+            Videos
+          </span>
+        </h1>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-9">
@@ -510,16 +558,20 @@ const Videos = () => {
           <div
             key={index}
             className="p-4 border rounded-2xl shadow-lg relative overflow-hidden"
-            style={{ backgroundImage: `url(${item.imageSrc})`, backgroundSize: 'cover', height: '350px' }}
+            style={{
+              backgroundImage: `url(${item.imageSrc})`,
+              backgroundSize: "cover",
+              height: "350px",
+            }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <VdoButton 
-                imageSrc={item.imageSrc} 
-                onClick={() => handleItemClick(item.videoUrl)} 
+              <VdoButton
+                imageSrc={item.imageSrc}
+                onClick={() => handleItemClick(item.videoUrl)}
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
                 }}
               />
             </div>
@@ -568,7 +620,10 @@ const Videos = () => {
 
       {showQuizModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white p-4 rounded-lg w-full max-w-3xl relative" style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+          <div
+            className="bg-white p-4 rounded-lg w-full max-w-3xl relative"
+            style={{ maxHeight: "80vh", overflowY: "auto" }}
+          >
             <button
               className="absolute top-2 right-2 text-black bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full shadow-md focus:outline-none"
               onClick={closeQuizModal}
@@ -581,7 +636,12 @@ const Videos = () => {
                   <h2 className="text-2xl font-bold mb-2">{q.question}</h2>
                   {q.options.map((option, i) => (
                     <label key={i} className="block text-gray-700">
-                      <input type="radio" name={`question-${index}`} value={option} className="mr-2" />
+                      <input
+                        type="radio"
+                        name={`question-${index}`}
+                        value={option}
+                        className="mr-2"
+                      />
                       {option}
                     </label>
                   ))}
@@ -607,45 +667,3 @@ const Videos = () => {
 };
 
 export default Videos;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

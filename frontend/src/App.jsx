@@ -23,6 +23,7 @@ import Articles from "./pages/ProtectedPages/Articles";
 import Courses from "./pages/ProtectedPages/Courses";
 import Courses1 from "./components/CoursesComponent/Courses/Courses1";
 import Videos from "./pages/ProtectedPages/Videos";
+import Game from "./pages/ProtectedPages/Game";
 const App = () => {
   return (
     <>
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/dashboard/education" element={<Education />} />
             <Route path="/dashboard/scholarship" element={<Scholarship />} />
             <Route path="/dashboard/assistant" element={<Assistant />} />
+            <Route path="/dashboard/game" element={<Game />} />
             <Route path="/dashboard/education/courses" element={<Courses />} />
             <Route path="/dashboard/education/courses/course-1" element={<Courses1 />} />
             <Route path="/dashboard/education/videos" element={<Videos />} />

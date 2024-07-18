@@ -57,6 +57,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+
+    addnuggets: builder.mutation({
+      query: (data) => ({
+        url: `/addnuggets`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+
+    getnuggets: builder.mutation({
+      query: (data) => ({
+        url: `/getnuggets`,
+        method: "GET",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -69,4 +85,6 @@ export const {
   useGetUserDetailsQuery,
   useUpdateUserDetailsMutation,
   useResetPasswordMutation,
+  useAddnuggetsMutation,
+  useGetnuggetsMutation,
 } = userApiSlice;

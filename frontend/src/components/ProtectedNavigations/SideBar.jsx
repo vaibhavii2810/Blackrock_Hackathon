@@ -99,6 +99,17 @@ const SideBar = () => {
             <Expense className="size-[1.5rem]" />
             Scholarship
           </li>
+          <li
+            className={`link ${
+              isRouteActive("/dashboard/game") ? "activeLink" : ""
+            }`}
+            onClick={() => {
+              navigate("/dashboard/game");
+            }}
+          >
+            <Expense className="size-[1.5rem]" />
+            Games
+          </li>
         </div>
         <li
           className={`link mt-auto ${

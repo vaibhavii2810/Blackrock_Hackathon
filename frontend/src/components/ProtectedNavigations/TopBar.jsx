@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Avatar } from "@nextui-org/react";
@@ -10,6 +10,7 @@ import nuggets from "../../assets/nuggets.png";
 import avatar from "../../assets/avatar.webp";
 import { openModal } from "../../features/logoutModal/logoutModalSlice";
 import Menu from "./Menu";
+import { useGetnuggetsMutation } from "../../features/api/apiSlices/userApiSlice";
 
 const TopBar = () => {
   const navigate = useNavigate();
@@ -20,14 +21,28 @@ const TopBar = () => {
     return location.pathname === path;
   };
 
+  const [getNugget, { isLoading: addnuggetsLoading }] = useGetnuggetsMutation();
+
+  const [nugget, setNugget] = useState(100);
+
+  const getPoints = async () => {
+    const data = await getNugget();
+
+    setNugget(data?.data?.score);
+  };
+
+  useEffect(() => {
+    getPoints();
+  },[setInterval]);
+
   return (
     <div className="w-full h-[10vh] flex justify-between items-center px-8 py-2 border-b-1 border-secondary">
       <div className="block xl:hidden">
         <Menu />
       </div>
-      <div className="hidden md:flex items-center space-x-4">
+      <div className="hidden md:flex text-2xl font-semibold items-center space-x-4">
         {/* Add tokens element here */}
-        <img src={nuggets} alt="Nuggets" className="h-12" />
+        <img src={nuggets} alt="Nuggets" className="h-12" /> {nugget} <span>Nuggets</span> 
       </div>
       <div className="flex justify-center items-center space-x-4">
         <Settings
