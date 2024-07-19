@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
+import { useGetAllExpensesQuery } from '../../features/api/apiSlices/expenseApiSlice';
+
+
 
 const Assistant = () => {
     const [question, setQuestion] = useState('');
@@ -12,16 +15,30 @@ const Assistant = () => {
     // Initialize GoogleGenerativeAI instance with API key
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const { data: expenseData, refetch: refetchExpenses } =
+    useGetAllExpensesQuery();
+    // Function to fetch expenses from the API
+    const fetchExpenses = async () => {
+        try {
+            // const response = await fetch('http://localhost:3000/api/v1/expenses/all'); 
+            await refetchExpenses();
+            const data =expenseData; 
+            console.log(data); 
+            // Filter the data for the last month
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+            const recentExpenses = data.expenses.filter(expense => new Date(expense.date) >= oneMonthAgo);
 
-    // Predefined expense data
-    const expenseData = `
-    Food Mess ₹4000
-    Transport ₹1200
-    Entertainment ₹1230
-    Rent House ₹10000
-    Clothes ₹5000
-    This are my expense for this month pls suggest how can i mange my expense and save more.
-    `;
+            // Format the data
+            const formattedExpenses = recentExpenses.map(expense => `${expense.category.charAt(0).toUpperCase() + expense.category.slice(1)} ₹${expense.amount}`).join('\n');
+            return formattedExpenses;
+            
+        } catch (error) {
+            console.error('Error fetching expenses:', error);
+            setError('Error fetching expenses. Please try again.');
+            return '';
+        }
+    };
 
     // Function to handle question submission
     const handleSubmit = async (e) => {
@@ -37,7 +54,7 @@ const Assistant = () => {
             const formattedResponse = formatResponse(plainText);
 
             setMessages([...messages, { type: 'user', text: question }]);
-            
+
             // Display formatted response gradually
             for (let i = 0; i < formattedResponse.length; i++) {
                 await new Promise(resolve => setTimeout(resolve, 1000)); // Adjust delay time as needed
@@ -73,9 +90,9 @@ const Assistant = () => {
     };
 
     // Function to handle "Manage My Expense" button click
-    const handleManageExpense = () => {
-        setQuestion(expenseData);
-
+    const handleManageExpense = async () => {
+        const expenseData = await fetchExpenses();
+        setQuestion(`These are my expenses for this month:\n${expenseData}\nPlease suggest how I can manage my expenses and save more.`);
     };
 
     return (
